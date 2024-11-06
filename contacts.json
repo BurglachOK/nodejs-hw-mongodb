@@ -88,5 +88,9 @@
     "contactType": "personal",
     "createdAt": "2024-05-08T16:12:14.954208",
     "updatedAt": "2024-05-08T16:12:14.954211"
+  },
+  {
+"note": "they are all, in mangoDB with userId"
   }
+
 ]

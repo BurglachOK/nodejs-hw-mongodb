@@ -1,24 +1,57 @@
 import { Router } from 'express';
-import { validateBody } from '../middlewares/validateBody.js';
-import { loginUserSchema, registerUserSchema } from '../validation/auth.js';
-import {
-    loginUserController,
-    logoutUserController,
-    refreshUserSessionController,
-    registerUserController,
-} from '../controllers/auth.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
-const router = Router();
-router.post(
+import { registerUserSchema } from '../validation/auth.js';
+import { registerUserController } from '../controllers/auth.js';
+import { validateBody } from '../middlewares/validateBody.js';
+import { loginUserSchema } from '../validation/auth.js';
+import { loginUserController } from '../controllers/auth.js';
+import { logoutUserController } from '../controllers/auth.js';
+import { refreshUserSessionController } from '../controllers/auth.js';
+import express from 'express';
+import { requestResetEmailSchema } from '../validation/auth.js';
+import { requestResetEmailController } from '../controllers/auth.js';
+import { resetPasswordSchema } from '../validation/auth.js';
+import { resetPasswordController } from '../controllers/auth.js';
+
+
+const authRouter = Router();
+const jsonParser = express.json();
+
+authRouter.post(
     '/register',
+    jsonParser,
     validateBody(registerUserSchema),
     ctrlWrapper(registerUserController),
 );
-router.post(
+
+authRouter.post(
     '/login',
+    jsonParser,
     validateBody(loginUserSchema),
     ctrlWrapper(loginUserController),
 );
-router.post('/refresh', ctrlWrapper(refreshUserSessionController));
-router.post('/logout', ctrlWrapper(logoutUserController));
-export default router;
+
+authRouter.post(
+    '/logout',
+    ctrlWrapper(logoutUserController)
+);
+
+authRouter.post(
+    '/refresh',
+    ctrlWrapper(refreshUserSessionController)
+);
+
+authRouter.post(
+    '/request-reset-email',
+    jsonParser,
+    validateBody(requestResetEmailSchema),
+    ctrlWrapper(requestResetEmailController),
+);
+
+authRouter.post(
+    '/reset-pwd',
+    jsonParser,
+    validateBody(resetPasswordSchema),
+    ctrlWrapper(resetPasswordController),
+);
+export default authRouter;
