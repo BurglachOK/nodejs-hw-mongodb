@@ -19,6 +19,12 @@ export function setupServer() {
     app.use(cookieParser());
     app.use(router);
 
+    app.get('/', (req, res) => {
+        res.json({
+            message: 'Welcome to the contacts!',
+        });
+    });
+
 
     app.use('*', notFoundHandler);
 
