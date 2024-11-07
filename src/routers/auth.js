@@ -42,7 +42,7 @@ authRouter.post(
 );
 
 authRouter.post(
-    '/request-reset-email',
+    '/send-reset-email',
     jsonParser,
     validateBody(requestResetEmailSchema),
     ctrlWrapper(requestResetEmailController),
