@@ -1,12 +1,12 @@
 openapi: 3.1.0
 info:
   version: 1.0.0
-  title: <назва вашого додатку>
+  title: Contact manager
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   description:
-    <опис вашого додатку>
+    There you can check, create and fully manage your contacts
 tags:
   # теги, що ви будете використовувати
 servers:
