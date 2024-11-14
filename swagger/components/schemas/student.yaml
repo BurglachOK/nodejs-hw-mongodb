@@ -2,41 +2,45 @@ type: object
 required:
   - _id
   - name
-  - age
-  - gender
-  - avgMark
-  - onDuty
+  - email
+  - phoneNumber
+  - contactType
+  - userId
 properties:
   _id:
-    description: "Student's id"
+    description: "Contact's id"
     type: string
-    example: 65e4decdd286b30065d54af9
+    example: "65e4decdd286b30065d54af9"
   name:
-    description: "Student's name"
+    description: "Contact's name"
     type: string
-    example: 'John Doe'
-  age:
-    description: "Student's age"
-    type: number
-    example: 12
-  gender:
-    description: "Student's age"
+    example: "John Doe"
+  email:
+    description: "Contact's email"
     type: string
-    enum: ['male', 'female', 'other']
-  avgMark:
-    description: "Student's average mark. Should be between 1 and 12"
-    type: number
-    example: 9.7
-  onDuty:
-    description: 'Whether is student on duty'
-    type: boolean
-    example: false
-  parentId:
-    description: "Student's parent id"
+    example: "jhondoe@example.com"
+  phoneNumber:
+    description: "Contact's phone number"
     type: string
-    example: 65e4decdd286b30065d54af9
+    example: "0988908789"
+  isFavourite:
+            description: 'Contact favourite or not'
+            type: boolean
+            default: false
+            example: true
+  contactType:
+    description: "Contact's type"
+    type: string
+    enum:
+      - work
+      - personal
+      - home
+    default: personal
+  userId:
+    description: "Contact's user id"
+    type: string
+    example: "65e4decdd286b30065d54af9"
   photo:
-    description: "Link to student's photo"
+    description: "Link to contact's photo"
     type: string
-    example: https://res.cloudinary.com/uqwgdu/image/upload/image.png
-
+    example: "https://res.cloudinary.com/uqwgdu/image/upload/image.jpg"
