@@ -2,12 +2,12 @@
   "openapi": "3.1.0",
   "info": {
     "version": "1.0.0",
-    "title": "Contacts book",
+    "title": "Contacts manager",
     "license": {
       "name": "Apache 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "description": "This is the documentation for the contact book application."
+    "description": "This is the docs fro the contact booc app"
   },
   "servers": [
     {
@@ -206,6 +206,12 @@
                     "type": "string",
                     "example": 988908776
                   },
+                  "isFavourite": {
+                    "description": "Contact favourite or not",
+                    "type": "boolean",
+                    "default": false,
+                    "example": true
+                  },
                   "contactType": {
                     "description": "Contact's type",
                     "type": "string",
@@ -323,6 +329,16 @@
         }
       },
       "patch": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "tags": [
           "Contacts"
         ],
@@ -349,6 +365,12 @@
                     "description": "Contact's phone number",
                     "type": "string",
                     "example": "0988908789"
+                  },
+                  "isFavourite": {
+                    "description": "Contact favourite or not",
+                    "type": "boolean",
+                    "default": false,
+                    "example": true
                   },
                   "email": {
                     "description": "Contact's email",
@@ -503,6 +525,12 @@
             "description": "Contact's phone number",
             "type": "string",
             "example": "0988908789"
+          },
+          "isFavourite": {
+            "description": "Contact favourite or not",
+            "type": "boolean",
+            "default": false,
+            "example": true
           },
           "contactType": {
             "description": "Contact's type",
