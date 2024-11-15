@@ -1,3 +1,9 @@
+parameters:
+  - in: path
+    name: id
+    required: true
+    schema:
+      type: string
 tags:
   - Contacts
 summary: Update contact by id
@@ -60,4 +66,4 @@ responses:
   401:
     $ref: '../../../components/responses/401.yaml'
   404:
-    $ref: '../../../components/responses/404.yaml' 
+    $ref: '../../../components/responses/404.yaml'
