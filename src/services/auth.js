@@ -11,10 +11,8 @@ import { sendEmail } from '../utils/sendMail.js';
 import handlebars from 'handlebars';
 import path from 'node:path';
 import fs from 'node:fs/promises';
-import { getFullNameFromGoogleTokenPayload, validateCode } from '../utils/googleOAuth2.js';
 
-
-export const registerUser = async (payload) => {
+export async function registerUser(payload) {
     const user = await UsersCollection.findOne({ email: payload.email });
     if (user) throw createHttpError(409, 'Email in use');
 
@@ -24,9 +22,9 @@ export const registerUser = async (payload) => {
         ...payload,
         password: encryptedPassword,
     });
-};
+}
 
-const createSession = () => {
+function createSession() {
     const accessToken = randomBytes(30).toString('base64');
     const refreshToken = randomBytes(30).toString('base64');
 
@@ -36,7 +34,7 @@ const createSession = () => {
         accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
         refreshTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
     };
-};
+}
 
 
 export const loginUser = async (payload) => {
@@ -126,7 +124,7 @@ export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
   //  );
 //};
 
-export const resetPassword = async (token, pwd) => {
+export const resetPassword = async ({ token, password }) => {
     try {
         const decoded = jwt.verify(token, env('JWT_SECRET'));
 
@@ -138,18 +136,15 @@ export const resetPassword = async (token, pwd) => {
         if (!user) {
             throw createHttpError(404, 'User not found!');
         }
+        const hashedPassword = await bcrypt.hash(password, 10);
+        await UsersCollection.updateOne(
+            { _id: user._id },
+            { password: hashedPassword }
+        );
 
-        const hashedPwd = await bcrypt.hash(pwd, 10);
-        await UsersCollection.findByIdAndUpdate(user._id, {
-            password: hashedPwd,
-        });
     } catch (error) {
-        console.error('Error in resetPassword:', error);
 
-        if (
-            error.name === 'JsonWebTokenError' ||
-            error.name === 'TokenExpiredError'
-        ) {
+        if (error.name === 'JsonWebTokenError' || error.name === 'TokenExpiredError') {
             throw createHttpError(401, 'Token is expired or invalid.');
         }
 
@@ -158,7 +153,7 @@ export const resetPassword = async (token, pwd) => {
 };
 
 
-export const requestResetToken = async (email) => {
+export async function requestResetToken(email) {
     const user = await UsersCollection.findOne({ email });
     if (!user) {
         throw createHttpError(404, 'User not found');
@@ -186,38 +181,23 @@ export const requestResetToken = async (email) => {
     const template = handlebars.compile(templateSource);
     const html = template({
         name: user.name,
-        link: `${env('APP_DOMAIN')}auth/reset-password?token=${resetToken}`,
+        link: `${env('APP_DOMAIN')}/reset-password?token=${resetToken}`,
     });
 
-
+    try {
         await sendEmail({
             from: env('SMTP_FROM'),
             to: email,
             subject: 'Reset your password',
             html,
         });
-};
 
-export const loginOrSignupWithGoogle = async (code) => {
-    const loginTicket = await validateCode(code);
-    const payload = loginTicket.getPayload();
-    if (!payload) throw createHttpError(401);
+    } catch (error) {
+        console.log(error);
 
-    let user = await UsersCollection.findOne({ email: payload.email });
-    if (!user) {
-        const password = await bcrypt.hash(randomBytes(10), 10);
-        user = await UsersCollection.create({
-            email: payload.email,
-            name: getFullNameFromGoogleTokenPayload(payload),
-            password,
-            role: 'parent',
-        });
+        throw createHttpError(
+            500,
+            error.message,
+        );
     }
-
-    const newSession = createSession();
-
-    return await SessionsCollection.create({
-        userId: user._id,
-        ...newSession,
-    });
-};
+}
