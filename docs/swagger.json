@@ -7,7 +7,7 @@
       "name": "Apache 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "description": "This is the docs fro the contact booc app"
+    "description": "This is the docs for the contact book app"
   },
   "servers": [
     {
