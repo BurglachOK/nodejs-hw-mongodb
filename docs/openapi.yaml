@@ -6,7 +6,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   description:
-    There you can check, create and fully manage your contacts
+    This is the docs for the contact book app
 tags:
   # теги, що ви будете використовувати
   - name: Contacts
