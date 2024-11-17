@@ -15,7 +15,7 @@ tags:
     description: Auth operations.
 servers:
   # - url: http://127.0.0.1:8080
-  - url: https://nodejs-hw-mongodb-1-iguh.onrender.com/api-docs #посилання на задеплоєний сайт
+  - url: https://nodejs-hw-mongodb-1-iguh.onrender.com #посилання на задеплоєний сайт
   - url: http://localhost:3000
 paths:
   # тут будуть посилання на ендпоінти
