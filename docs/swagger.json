@@ -11,7 +11,7 @@
   },
   "servers": [
     {
-      "url": "https://nodejs-hw-mongodb-1-iguh.onrender.com"
+      "url": "https://nodejs-hw-mongodb-1-iguh.onrender.com/api/v1"
     },
     {
       "url": "http://localhost:3000"
