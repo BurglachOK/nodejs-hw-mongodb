@@ -275,7 +275,7 @@
         }
       }
     },
-    "/contacts/{Id}": {
+    "/contacts/{contactId}": {
       "get": {
         "tags": [
           "Contacts"
@@ -291,7 +291,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "Id",
+            "name": "contactId",
             "required": true,
             "schema": {
               "type": "string",
@@ -352,7 +352,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "Id",
+            "name": "contactId",
             "required": true,
             "schema": {
               "type": "string",
@@ -503,11 +503,11 @@
         "parameters": [
           {
             "in": "path",
-            "name": "Id",
+            "name": "contactId",
             "required": true,
             "schema": {
               "type": "string",
-              "example": "672b4495ca6511a31ba4e1a3"
+              "example": "672b44faca6511a31ba4e1b1"
             }
           }
         ],
