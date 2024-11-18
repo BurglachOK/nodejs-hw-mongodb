@@ -192,8 +192,8 @@
             "schema": {
               "type": "string",
               "enum": [
-                "home",
                 "work",
+                "home",
                 "personal"
               ]
             }
