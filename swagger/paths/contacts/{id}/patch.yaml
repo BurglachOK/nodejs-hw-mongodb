@@ -1,9 +1,3 @@
-parameters:
-  - in: path
-    name: id
-    required: true
-    schema:
-      type: string
 tags:
   - Contacts
 summary: Update contact by id
@@ -11,58 +5,95 @@ operationId: updateContact
 description: 'Update contact by id'
 security:
   - bearerAuth: []
+parameters:
+  - in: path
+    name: contactId
+    required: true
+    schema:
+      type: string
+      example: '6655a67a37bc0571c96d9655'
 requestBody:
+  description: Some properties can be updated - "name", "phoneNumber", "email", "isFavourite", "contactType", "photo"
+  required: false
   content:
     multipart/form-data:
       schema:
         type: object
         properties:
           name:
-            description: "Contact's name"
             type: string
-            example: 'John Doe'
           phoneNumber:
-            description: "Contact's phone number"
             type: string
-            example: '0988908789'
-          isFavourite:
-            description: 'Contact favourite or not'
-            type: boolean
-            default: false
-            example: true
           email:
-            description: "Contact's email"
             type: string
-            example: jhondoe@email.com
+          isFavourite:
+            type: boolean
           contactType:
-            description: 'Type of contact'
             type: string
             enum: ['work', 'home', 'personal']
           photo:
             description: "Contact's avatar"
             type: string
             format: binary
+    application/json:
+      schema:
+        type: object
+        properties:
+          phoneNumber:
+            type: string
+            example: '+380991112233'
+          email:
+            type: string
+            example: 'new-john-doe@gmail.com'
 responses:
   200:
-    description: Update contact by id
+    description: Contact Updated
     content:
       application/json:
         schema:
           type: object
-          required:
-            - status
-            - message
-            - data
           properties:
-            status:
-              type: number
-              example: 200
-            message:
+            _id:
+              description: "Contact's id"
               type: string
-              example: Successfully updated a contact!
-            data:
-              type: object
-              $ref: '../../../components/schemas/contact.yaml'
+              example: 6655a67a37bc0571c96d9655
+            name:
+              description: "Contact's name"
+              type: string
+              example: 'John Doe'
+            phoneNumber:
+              description: "Contact's phone number"
+              type: string
+              example: '+380991112233'
+            email:
+              description: "Contact's email"
+              type: string
+              example: 'new-john-doe@gmail.com'
+            isFavourite:
+              description: 'True if contact is favourite'
+              type: boolean
+              example: true
+            contactType:
+              description: "Contact's type"
+              type: string
+              enum: ['work', 'home', 'personal']
+            photo:
+              description: "Link to contact's photo"
+              type: string
+              example: 'https://res.cloudinary.com/asvasv/image/upload/v1717744418/lpzhpmnssdfa83lc25ux.jpg'
+            userId:
+              description: Contact's user id (internal application data)
+              type: string
+              example: 65e4decdd286b30065d54af9
+            createdAt:
+              description: Database timestamp (auto-generated)
+              type: string
+              example: '2024-06-16T05:52:08.998Z'
+            updatedAt:
+              description: Database timestamp (auto-generated)
+              type: string
+              example: '2024-06-16T05:52:08.998Z'
+
   401:
     $ref: '../../../components/responses/401.yaml'
   404:

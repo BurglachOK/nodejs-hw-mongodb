@@ -18,33 +18,26 @@ requestBody:
           name:
             description: "Contact's name"
             type: string
-            example: 'Jhon doe'
-          email:
-            description: "Contact's email"
-            type: string
-            example: jhondoe@example.com
           phoneNumber:
             description: "Contact's phone number"
             type: string
-            example: 0988908776
+          email:
+            description: "Contact's email"
+            type: string
           isFavourite:
             description: 'Contact favourite or not'
             type: boolean
-            default: false
-            example: true
           contactType:
             description: "Contact's type"
             type: string
             enum: ['work', 'home', 'personal']
-            default: 'personal'
           photo:
-            description: "Contact's avatar"
+            description: Contact's avatar (*.jpg, *.png)
             type: string
             format: binary
-            example: https://res.cloudinary.com/uqwgdu/image/upload/image.jpg
 responses:
   201:
-    description: 'Create contact'
+    description: Successfully created a contact
     content:
       application/json:
         schema:
@@ -55,7 +48,7 @@ responses:
             - data
           properties:
             status:
-              type: number
+              type: integer
               example: 201
             message:
               type: string
