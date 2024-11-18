@@ -12,7 +12,7 @@ parameters:
     required: true
     schema:
       type: string
-      example: '672b44faca6511a31ba4e1b1'
+      example: 672b4495ca6511a31ba4e1a3
 responses:
   204:
     description: The contact was successfully deleted

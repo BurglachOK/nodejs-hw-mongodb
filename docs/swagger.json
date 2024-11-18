@@ -507,7 +507,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "65ca67e7ae7f10c88b598495"
+              "example": "672b4495ca6511a31ba4e1a3"
             }
           }
         ],
@@ -538,7 +538,6 @@
         "required": [
           "_id",
           "name",
-          "email",
           "phoneNumber",
           "contactType"
         ],
