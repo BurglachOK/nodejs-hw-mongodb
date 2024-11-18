@@ -18,10 +18,9 @@ const contactsSchema = new Schema(
             type: Boolean,
             default: false,
         },
-        contactsType: {
+        contactType: {
             type: String,
-            enum: ['work', 'home', 'personal'],
-            default: 'personal',
+            enum: ['work', 'home', 'personal']
         },
         userId: {
             type: Schema.Types.ObjectId,
