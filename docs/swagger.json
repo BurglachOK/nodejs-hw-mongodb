@@ -457,8 +457,7 @@
                     },
                     "photo": {
                       "description": "Link to contact's photo",
-                      "type": "string",
-                      "example": "https://res.cloudinary.com/asvasv/image/upload/v1717744418/lpzhpmnssdfa83lc25ux.jpg"
+                      "type": "string"
                     },
                     "userId": {
                       "description": "Contact's user id (internal application data)",
